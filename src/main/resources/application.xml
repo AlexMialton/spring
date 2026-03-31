@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
+            <constructor-arg name="userName" value="user1" />
+            <constructor-arg name="poolSize" value="10" />
+            <constructor-arg name="args" >
+                    <list>
+                        <value>1</value>
+                        <value>2</value>
+                        <value>3</value>
+                    </list>
+            </constructor-arg>
+            <constructor-arg name="properties" >
+                <map>
+                    <entry key="user" value="Alex" />
+                    <entry key="address" value="München" />
+                </map>
+            </constructor-arg>
+    </bean>
+<!--    <bean id="repo2" name="r3" class="spring.database.repository.UserRepository"/>  we can create multiple beans of the same type-->
+</beans>

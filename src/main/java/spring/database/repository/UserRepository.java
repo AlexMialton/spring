@@ -11,6 +11,8 @@ import java.util.Map;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor(force = true) //to make bean creation with setters possible
+@Setter                          //to make bean creation with setters possible
 public class UserRepository {
     private String userName;
     private int poolSize;

@@ -2,6 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--    Create bean with constructor-->
     <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
             <constructor-arg name="userName" value="user1" />
             <constructor-arg name="poolSize" value="10" />
@@ -9,7 +12,7 @@
                     <list>
                         <value>1</value>
                         <value>2</value>
-                        <value>3</value>
+                        <value>3</value>  <!--  <ref>driver</ref> instead of <value>3</value> in order to use bean-->
                     </list>
             </constructor-arg>
             <constructor-arg name="properties" >
@@ -19,5 +22,39 @@
                 </map>
             </constructor-arg>
     </bean>
-<!--    <bean id="repo2" name="r3" class="spring.database.repository.UserRepository"/>  we can create multiple beans of the same type-->
+
+<!--    Create bean with setters-->
+   <bean id="repo2" name="r3" class="spring.database.repository.UserRepository">
+       <property name="userName" ref="driver" />  <!--    ref="driver" instead of value="user2" to make dependency injection possible-->
+       <property name="properties" >
+           <map>
+               <entry key="user" value="Sofi" />
+               <entry key="address" value-ref="driver" />  <!--    key-ref/value-ref="driver" instead of key/value="Berlin" if we want to use another bean -->
+           </map>
+       </property>
+   </bean>
+
+    <!--    Bean we use as reference in other beans-->
+    <bean name="driver" class="java.lang.String">
+        <constructor-arg value="PostgresDriver" />
+    </bean>
+
+
+    <!--    Task: create Bean UserService-->
+    <!--    First we create bean UserDto-->
+    <bean name="userDto" class="spring.dto.UserDto" scope="prototype"/>  <!--   scope="prototype" - new bean for each call-->
+
+    <!--    Then we need a UserMapper bean-->
+    <bean name="userMapper" class="spring.mapper.UserMapper">
+        <constructor-arg ref="userDto"/>
+<!--        <property name="userDto" ref="userDto" />   why doesn't it work like this? -->
+    </bean>
+    <!--    And now we can create a UserService bean-->
+    <bean name="userService" class="spring.service.UserService">
+         <constructor-arg ref="userMapper"/>
+         <constructor-arg ref="r1"/>
+<!--        <property name="userMapper" ref="userMapper" />-->
+<!--        <property name="userRepository" ref="r1" />-->
+    </bean>
+
 </beans>

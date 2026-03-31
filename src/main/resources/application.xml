@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+
+    <!--    The first way to configure properties-->
+    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+    <!--        <property name="location" value="classpath:application.properties"/>-->
+    <!--    </bean>-->
+
+    <!--    The second way to configure properties (better)-->
+    <!--    Add to the head: xmlns:context="http://www.springframework.org/schema/context"-->
+    <context:property-placeholder location="classpath:application.properties"/>
+
+
 
 
     <!--    Create bean with constructor-->
     <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
-            <constructor-arg name="userName" value="user1" />
-            <constructor-arg name="poolSize" value="10" />
+            <constructor-arg name="userName" value="${db.username}" />  <!-- make use of properties-->
+            <constructor-arg name="poolSize" value="${db.pollsize}" />  <!-- expression language-->
             <constructor-arg name="args" >
                     <list>
                         <value>1</value>
@@ -28,7 +44,8 @@
        <property name="userName" ref="driver" />  <!--    ref="driver" instead of value="user2" to make dependency injection possible-->
        <property name="properties" >
            <map>
-               <entry key="user" value="Sofi" />
+               <entry key="user" value="#{driver.replace('a', 'b')}" /> <!-- spring language: you can write methods with it -->
+                                                                        <!-- Is used to change something on the bean definition level -->
                <entry key="address" value-ref="driver" />  <!--    key-ref/value-ref="driver" instead of key/value="Berlin" if we want to use another bean -->
            </map>
        </property>

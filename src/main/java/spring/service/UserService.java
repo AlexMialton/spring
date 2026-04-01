@@ -11,7 +11,7 @@ import spring.mapper.UserMapper;
 @ToString
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
-@Setter
+@Setter //to make bean creation with [setter] possible
 public class UserService {
 
     private final UserMapper userMapper;

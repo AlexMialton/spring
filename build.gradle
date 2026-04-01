@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    //Annotations
+    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
     //Spring
     implementation 'org.springframework:spring-context:7.0.5'
     implementation 'org.springframework:spring-core:7.0.5'

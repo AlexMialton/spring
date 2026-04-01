@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor(force = true) //to make bean creation with setters possible
-@Setter
+@Setter                          //to make bean creation with [setter] possible
 @ToString
 public class UserDto {
 }

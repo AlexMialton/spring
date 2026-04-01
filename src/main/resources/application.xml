@@ -7,22 +7,32 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+    <!--    The first way to enable [annotation] bean definition initialization-->
+    <!--  <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>     Needed for bean definition creation with [annotation] -->
 
-    <!--    The first way to configure properties-->
+    <!--    The second way to enable [annotation] bean definition creation (better) -->
+    <context:annotation-config/>
+
+
+
+    <!--    The first way to configure [properties]-->
+
     <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
     <!--        <property name="location" value="classpath:application.properties"/>-->
     <!--    </bean>-->
 
-    <!--    The second way to configure properties (better)-->
+    <!--    The second way to configure [properties] (better)-->
+
     <!--    Add to the head: xmlns:context="http://www.springframework.org/schema/context"-->
     <context:property-placeholder location="classpath:application.properties"/>
 
 
 
 
-    <!--    Create bean with constructor-->
-    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository" init-method="init" destroy-method="destroy"> <!--  init-method="init" destroy-method="destroy": one of the ways to init/destroy beans-->
-                                                                                                                                  <!--  in order the methods to work we need to call context.close() in the SpringRunner-->
+    <!--    Create bean with [constructor]-->
+    <!--<bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository" init-method="init" destroy-method="destroy">   init-method="init" destroy-method="destroy": one of the ways to init/destroy beans - with [xml]-->
+                                                                                                                                     <!--  in order the methods to work we need to call context.close() in the SpringRunner [xml]-->
+    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
             <constructor-arg name="userName" value="${db.username}" />  <!-- make use of properties-->
             <constructor-arg name="poolSize" value="${db.pollsize}" />  <!-- expression language-->
             <constructor-arg name="args" >
@@ -40,7 +50,7 @@
             </constructor-arg>
     </bean>
 
-<!--    Create bean with setters-->
+<!--    Create bean with [setter] -->
    <bean id="repo2" name="r3" class="spring.database.repository.UserRepository">
        <property name="userName" ref="driver" />  <!--    ref="driver" instead of value="user2" to make dependency injection possible-->
        <property name="properties" >
@@ -60,7 +70,7 @@
 
     <!--    Task: create Bean UserService-->
     <!--    First we create bean UserDto-->
-    <bean name="userDto" class="spring.dto.UserDto" scope="prototype"/>  <!--   scope="prototype" - new bean for each call-->
+    <bean name="userDto" class="spring.dto.UserDto" scope="prototype"/>  <!--  [scope]="prototype" - new bean for each call -->
 
     <!--    Then we need a UserMapper bean-->
     <bean name="userMapper" class="spring.mapper.UserMapper">

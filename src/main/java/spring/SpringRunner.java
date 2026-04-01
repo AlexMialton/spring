@@ -16,12 +16,12 @@ public class SpringRunner {
 //        var userService = new UserService(userMapper, userRepository);
 
         var context = new ClassPathXmlApplicationContext( "application.xml");
-        var userRepository = context.getBean("repo2", UserRepository.class);      // UserRepository.class isn't necessary, but without it an Object is returned
+        var userRepository = context.getBean("repo1", UserRepository.class);      // UserRepository.class isn't necessary, but without it an Object is returned
                                                                                     // Instead of repo1 we can use "r1" or "r2"
-//        var userService = context.getBean("userService", UserService.class);
+//      var userService = context.getBean("userService", UserService.class);
         System.out.println(userRepository); // set a debug breakpoint -> right mouse click -> evaluate expression
                                          // -> type "context.getBean(UserDto.class)" -> press evaluate -> every time new id because of scope prototype
 
-
+        context.close(); // for init/destroy methods to work, we could also set the context in the try-with-resources clous
     }
 }

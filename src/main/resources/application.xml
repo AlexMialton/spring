@@ -21,7 +21,8 @@
 
 
     <!--    Create bean with constructor-->
-    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
+    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository" init-method="init" destroy-method="destroy"> <!--  init-method="init" destroy-method="destroy": one of the ways to init/destroy beans-->
+                                                                                                                                  <!--  in order the methods to work we need to call context.close() in the SpringRunner-->
             <constructor-arg name="userName" value="${db.username}" />  <!-- make use of properties-->
             <constructor-arg name="poolSize" value="${db.pollsize}" />  <!-- expression language-->
             <constructor-arg name="args" >

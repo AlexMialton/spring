@@ -18,4 +18,12 @@ public class UserRepository {
     private int poolSize;
     private List<Object> args;
     private Map<String, Object> properties;
+
+
+    public void init(){
+        System.out.println("Init UserRepository");
+    }
+    public void destroy(){
+        System.out.println("Destroy UserRepository");
+    }
 }

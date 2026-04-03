@@ -29,7 +29,13 @@
     <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository"/>
     <!--    Bean definition created with constructor-->
 
-    <bean class="spring.database.repository.pool.ConnectionPool">
+    <bean name="connectionPool1" class="spring.database.repository.pool.ConnectionPool">
+        <constructor-arg name="username" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
+        <constructor-arg name="poolSize" value="${db.poolsize}"/>
+        <constructor-arg name="url" value="${db.url}"/>
+    </bean>
+    <bean name="connectionPool2" class="spring.database.repository.pool.ConnectionPool">
         <constructor-arg name="username" value="${db.username}"/>
         <constructor-arg name="password" value="${db.password}"/>
         <constructor-arg name="poolSize" value="${db.poolsize}"/>

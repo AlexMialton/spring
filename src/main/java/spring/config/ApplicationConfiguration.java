@@ -15,19 +15,20 @@ import web.WebConfiguration;
 @PropertySource("classpath:application.properties") //so we can now remove the <context:property-placeholder location="classpath:application.properties"/> from xml
 public class ApplicationConfiguration {
 
-//    @Bean
-//    @Scope(BeanDefinition.SCOPE_SINGLETON)
-//    public ConnectionPool connectionPool() {
-//        return new ConnectionPool("aleksandramialton", "root", 20, "url");
-//    }
+    @Bean
+    @Scope(BeanDefinition.SCOPE_SINGLETON)
+    public ConnectionPool connectionPool() {
+        return new ConnectionPool("aleksandramialton", "root", 20, "url");
+    }
 
     @Bean
+    @Profile("prod") //@Profile("!prod&web") - not prod and web
     public ConnectionPool connectionPool1() { //the method name of the bean should be the same as the variable name or use @Qualifier/@Autowired if they are not identical
         return new ConnectionPool("mysql", "123", 200, "---");
     }
 
-    @Bean
-    public UserRepository userRepository(){
-        return new UserRepository(connectionPool1());
-    }
+//    @Bean
+//    public UserRepository userRepository(){
+//        return new UserRepository(connectionPool1());
+//    }
 }

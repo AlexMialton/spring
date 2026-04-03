@@ -2,3 +2,4 @@
 [constructor]      - how to initialize a bean with constructor
 [scope]            - bean scopes: singleton, prototype
 [properties]       - how to configure and connect properties file
+[new xml]          - how to create bean definitions with annotations

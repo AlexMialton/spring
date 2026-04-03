@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.stereotype.Repository;
 import spring.bpp.InjectBean;
 import spring.database.repository.pool.ConnectionPool;
 
 import java.util.List;
 
-
+@Repository  //[new xml]
 @ToString
 public class UserRepository {
     @Autowired                              // (required=true): zu injectende Odjekt muss in dem Map vorhanden sein bevor Injection und wir kriegen einen Fehler
@@ -28,4 +29,9 @@ public class UserRepository {
     @Autowired
     private List<ConnectionPool> connectionPools; // Repository hat dann die beiden connectioPool1 und -2
 
+    public UserRepository(ConnectionPool connectionPool1, @Value("${db.poolsize}") Integer poolSize, List<ConnectionPool> connectionPools) {
+        this.connectionPool1 = connectionPool1;
+        this.poolSize = poolSize;
+        this.connectionPools = connectionPools;
+    }
 }

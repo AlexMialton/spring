@@ -3,9 +3,10 @@ package spring.dto;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor(force = true) //to make bean creation with setters possible
-@Setter                          //to make bean creation with [setter] possible
+
+@Component  //[new xml]
 @ToString
 public class UserDto {
 }

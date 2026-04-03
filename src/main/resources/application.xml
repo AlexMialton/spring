@@ -7,13 +7,11 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <!--    The first way to enable [annotation] bean definition initialization-->
+    <!--    The first way to initialize a bean-->
     <!--  <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>     Needed for bean definition creation with [annotation] -->
 
-    <!--    The second way to enable [annotation] bean definition creation (better) -->
+    <!--    The second way to initialize a bean (better) -->
     <context:annotation-config/>
-
-
 
     <!--    The first way to configure [properties]-->
 
@@ -26,45 +24,22 @@
     <!--    Add to the head: xmlns:context="http://www.springframework.org/schema/context"-->
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <bean class="spring.bpp.InjectBeanPostProcessor" />
 
+    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository"/>
+    <!--    Bean definition created with constructor-->
 
-
-    <!--    Create bean with [constructor]-->
-    <!--<bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository" init-method="init" destroy-method="destroy">   init-method="init" destroy-method="destroy": one of the ways to init/destroy beans - with [xml]-->
-                                                                                                                                     <!--  in order the methods to work we need to call context.close() in the SpringRunner [xml]-->
-    <bean id="repo1" name="r1, r2" class="spring.database.repository.UserRepository">
-            <constructor-arg name="userName" value="${db.username}" />  <!-- make use of properties-->
-            <constructor-arg name="poolSize" value="${db.pollsize}" />  <!-- expression language-->
-            <constructor-arg name="args" >
-                    <list>
-                        <value>1</value>
-                        <value>2</value>
-                        <value>3</value>  <!--  <ref>driver</ref> instead of <value>3</value> in order to use bean-->
-                    </list>
-            </constructor-arg>
-            <constructor-arg name="properties" >
-                <map>
-                    <entry key="user" value="Alex" />
-                    <entry key="address" value="München" />
-                </map>
-            </constructor-arg>
+    <bean class="spring.database.repository.pool.ConnectionPool">
+        <constructor-arg name="username" value="${db.username}"/>
+        <constructor-arg name="password" value="${db.password}"/>
+        <constructor-arg name="poolSize" value="${db.poolsize}"/>
+        <constructor-arg name="url" value="${db.url}"/>
     </bean>
-
-<!--    Create bean with [setter] -->
-   <bean id="repo2" name="r3" class="spring.database.repository.UserRepository">
-       <property name="userName" ref="driver" />  <!--    ref="driver" instead of value="user2" to make dependency injection possible-->
-       <property name="properties" >
-           <map>
-               <entry key="user" value="#{driver.replace('a', 'b')}" /> <!-- spring language: you can write methods with it -->
-                                                                        <!-- Is used to change something on the bean definition level -->
-               <entry key="address" value-ref="driver" />  <!--    key-ref/value-ref="driver" instead of key/value="Berlin" if we want to use another bean -->
-           </map>
-       </property>
-   </bean>
+    
 
     <!--    Bean we use as reference in other beans-->
     <bean name="driver" class="java.lang.String">
-        <constructor-arg value="PostgresDriver" />
+        <constructor-arg value="PostgresDriver"/>
     </bean>
 
 
@@ -84,5 +59,17 @@
 <!--        <property name="userMapper" ref="userMapper" />-->
 <!--        <property name="userRepository" ref="r1" />-->
     </bean>
+
+<!--    Bean definition created with setters-->
+
+<!--    <bean id="repo2" name="r3" class="spring.database.repository.UserRepository">-->
+<!--        <property name="userName" ref="driver" />  &lt;!&ndash;    ref="driver" instead of value="user2" to make dependency injection possible&ndash;&gt;-->
+<!--        <property name="properties" >-->
+<!--            <map>-->
+<!--                <entry key="user" value="Sofi" />-->
+<!--                <entry key="address" value-ref="driver" />  &lt;!&ndash;    key-ref/value-ref="driver" instead of key/value="Berlin" if we want to use another bean &ndash;&gt;-->
+<!--            </map>-->
+<!--        </property>-->
+<!--    </bean>-->
 
 </beans>

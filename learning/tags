@@ -1,6 +1,4 @@
 [setter]           - how to initialize a bean with setters
 [constructor]      - how to initialize a bean with constructor
-[xlm]              - how to initialize a bean definition creation with xml
-[annotation]       - how to initialize a bean definition with annotations
 [scope]            - bean scopes: singleton, prototype
 [properties]       - how to configure and connect properties file

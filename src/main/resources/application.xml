@@ -9,8 +9,8 @@
 
     <context:component-scan base-package="spring" /> <!--    define the package so spring knows, it should to analyze and execute the annotations  [new xml]-->
     <context:annotation-config/>
-    <context:property-placeholder location="classpath:application.properties"/>
 
+    <bean class="spring.config.ApplicationConfiguration" />
     <bean name="driver" class="java.lang.String">
         <constructor-arg value="PostgresDriver"/>
     </bean>

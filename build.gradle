@@ -1,6 +1,8 @@
-plugins {
+plugins(({
     id 'java'
-}
+    id 'org.springframework.boot' version '4.1.0-M4'
+    id 'io.spring.dependency-management' version '1.1.7' //It manages versions of spring modules, so that we don't need to worry about version compatibility
+}))
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -10,11 +12,10 @@ repositories {
 }
 
 dependencies {
-    //Annotations
-    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
-    //Spring
-    implementation 'org.springframework:spring-context:7.0.5'
-    implementation 'org.springframework:spring-core:7.0.5'
+
+    implementation 'org.springframework.boot:spring-boot-starter:4.0.5' //Spring-boot starters - just jar dependencies, which add zhe needed functionalities with autoconfiguration for certain module
+    implementation 'org.postgresql:postgresql'
+
     //Lombok
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")

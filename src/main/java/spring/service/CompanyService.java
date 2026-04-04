@@ -7,7 +7,6 @@ import spring.dto.CompanyReadDto;
 import spring.listener.AccessType;
 import spring.listener.Event;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

@@ -16,7 +16,7 @@ public class ConnectionPool {
     public ConnectionPool(@Value("${db.username}") String username,  //[new xml]
                           @Value("${db.password}") String password,
                           @Value("${db.poolsize}") Integer poolSize,
-                          @Value("${db.url}")      String url){
+                          @Value("${db.url}")String url){
         this.username = username;
         this.password = password;
         this.poolSize = poolSize;

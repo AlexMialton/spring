@@ -17,3 +17,11 @@ db:
       timeout: 20
     - size: 5
       timeout: 10
+
+logging:
+  level:
+    root: WARN
+    spring.database.repository.pool.ConnectionPool: INFO # only for this class/package INFO
+  file:
+    name: springlog
+    path: /

@@ -1,0 +1,4 @@
+# all other properties will be read from application.yml, and only these two will be overwritten
+db:
+  username: test
+  password: tets

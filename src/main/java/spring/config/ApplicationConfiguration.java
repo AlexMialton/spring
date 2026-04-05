@@ -1,17 +1,19 @@
 package spring.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
+import spring.database.repository.UserRepository;
 import spring.database.repository.pool.ConnectionPool;
 
 
 @Configuration
 public class ApplicationConfiguration {
 
-    @Bean
+    @Bean("ConnectionPool")
     @Scope(BeanDefinition.SCOPE_SINGLETON)
-    public ConnectionPool connectionPool() {
-        return new ConnectionPool("aleksandramialton", "root", 20, "url");
+    public ConnectionPool connectionPool(@Value("${db.username}") String username) {
+        return new ConnectionPool(username, "root", 20, "url");
     }
 
 //    @Bean

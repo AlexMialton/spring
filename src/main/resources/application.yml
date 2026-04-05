@@ -1,0 +1,19 @@
+# see DataBaseProperties (@ConfigurationProperties)
+db:
+  username: aleksandramialton
+  password: root
+  driver: postgresDriver
+  url: postgres:5432
+  hosts: localhost,127.0.0.1
+  properties: # map
+    first: 1
+    last: 2
+    key: value
+  pool:
+    size: 10
+    timeout: 20
+  pools: # list of pools
+    - size: 10
+      timeout: 20
+    - size: 5
+      timeout: 10
